@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ai.traceable.sample.app.grpc.sample";
+option java_outer_classname = "SampleGrpc";
+option objc_class_prefix = "HLW";
+
+package sample.grpc;
+
+/**
+ * @author prerana.singhal on 21/09/2020
+ */
+service SampleService {
+  // A simple RPC.
+  // Returns greeting for the given name
+  rpc SayHello (Name) returns (Greeting) {}
+
+  // A server-to-client streaming RPC.
+  // Returns space-separated words given a line as input
+  rpc getWords (Line) returns (stream ChunkedWord) {}
+
+  // A client-to-server streaming RPC.
+  // Returns a line given a stream of words
+  rpc getLine (stream ChunkedWord) returns (Line) {}
+
+  // A Bidirectional streaming RPC.
+  // Accepts a stream of phrases and returns a stream of lines
+  rpc streamLines (stream ChunkedPhrase) returns (stream Line) {}
+}
+
+
+message Name {
+  string first_name = 1;
+  string last_name = 2;
+}
+
+message Greeting {
+  Name name = 1;
+  string message = 2;
+}
+
+message ChunkedWord {
+  string word = 1;
+  bool add_comma = 2;
+}
+
+message ChunkedPhrase {
+  string phrase = 1;
+  bool add_comma = 2;
+  bool add_stop = 3;
+}
+
+message Line {
+  string line = 1;
+}
