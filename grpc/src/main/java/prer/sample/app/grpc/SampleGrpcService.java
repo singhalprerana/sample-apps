@@ -5,6 +5,8 @@ import io.grpc.stub.StreamObserver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author prerana.singhal on 21/09/2020
@@ -142,7 +144,12 @@ public class SampleGrpcService extends SampleServiceGrpc.SampleServiceImplBase {
         System.out.println(service + " finished streaming response at 'streamLines'");
         if (grpcClient != null) {
           try {
-            grpcClient.streamLines(phrases);
+            CountDownLatch latch = grpcClient.streamLines(phrases);
+            // will throw error and status would be cancelled if we do not wait for the client to finish its job
+            // Trying to simulate that use-case as well..
+            if (System.currentTimeMillis() % 2 ==0) {
+              latch.await(1, TimeUnit.MINUTES);
+            }
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
