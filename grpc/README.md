@@ -31,5 +31,5 @@ Steps to run single-JVM app:
 
 -- Run the sample App with embedded client, upstream and downstream
 
-java -jar "grpc/build/libs/sample-grpc-app.jar" 
+java -jar "grpc/build/libs/sample-grpc-app.jar" 50051 50052
 

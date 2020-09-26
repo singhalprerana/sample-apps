@@ -30,23 +30,6 @@ public class SampleGrpcClient {
     client = "Client-for-" + port;
   }
 
-  public static void main(String[] args) throws Exception {
-    int serverPort = Integer.parseInt(args[0]);
-
-    SampleGrpcClient grpcClient = new SampleGrpcClient(serverPort);
-    while (true) {
-      Thread.sleep(1000);
-      grpcClient.sayHello("Expecto", "Patronum");
-      Thread.sleep(1000);
-      grpcClient.getWords("To the well-organized mind, death is but the next great adventure.");
-      Thread.sleep(1000);
-      grpcClient.getLine(Arrays.asList("I", "solemnly", "swear,", "I'm", "upto", "no", "good"));
-      Thread.sleep(1000);
-      grpcClient.streamLines(Arrays.asList("Do not pity", "the dead, Harry. Pity", "the living. And,", "above all,", "those who live", "without love."));
-      Thread.sleep(1000);
-    }
-  }
-
   // A simple RPC.
   public void sayHello(String firstName, String lastName) {
     System.out.println("\n" + client + " starting to send request for 'sayHello'");
@@ -180,5 +163,26 @@ public class SampleGrpcClient {
 
   public void close() throws InterruptedException {
     channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
+  }
+
+  public static void main(String[] args) throws Exception {
+    int serverPort = Integer.parseInt(args[0]);
+
+    SampleGrpcClient grpcClient = new SampleGrpcClient(serverPort);
+    grpcClient.runClientApp();
+  }
+
+  public void runClientApp() throws InterruptedException {
+    while (true) {
+      Thread.sleep(1000);
+      sayHello("Expecto", "Patronum");
+      Thread.sleep(1000);
+      getWords("To the well-organized mind, death is but the next great adventure.");
+      Thread.sleep(1000);
+      getLine(Arrays.asList("I", "solemnly", "swear,", "I'm", "upto", "no", "good"));
+      Thread.sleep(1000);
+      streamLines(Arrays.asList("Do not pity", "the dead, Harry. Pity", "the living. And,", "above all,", "those who live", "without love."));
+      Thread.sleep(1000);
+    }
   }
 }

@@ -1,5 +1,6 @@
 package prer.sample.app.grpc;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -7,10 +8,24 @@ import java.util.Arrays;
  */
 public class SampleGrpcApp {
 
-  public static void main(String[] args) throws Exception {
-    int upstreamPort = 50051;
-    int downstreamPort = 50052;
+  private final int upstreamPort;
+  private final int downstreamPort;
 
+  public SampleGrpcApp(int upstreamPort, int downstreamPort) {
+    this.upstreamPort = upstreamPort;
+    this.downstreamPort = downstreamPort;
+  }
+
+  public static void main(String[] args) throws Exception {
+    SampleGrpcApp sampleGrpcApp = new SampleGrpcApp(50051, 50052);
+    if (args.length > 1) {
+      sampleGrpcApp = new SampleGrpcApp(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+    }
+
+    sampleGrpcApp.runFullApp();
+  }
+
+  public void runFullApp() throws IOException, InterruptedException {
     SampleGrpcServer downstreamServer = new SampleGrpcServer(downstreamPort, -1);
     downstreamServer.start();
 
@@ -30,7 +45,6 @@ public class SampleGrpcApp {
       grpcClient.streamLines(Arrays.asList("Do not pity", "the dead, Harry. Pity", "the living. And,", "above all,", "those who live", "without love."));
       Thread.sleep(1000);
     }
-
   }
 
 }
