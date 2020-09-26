@@ -14,3 +14,7 @@ buildscript {
 }
 
 include(":grpc")
+include(":http:clients:grizzly")
+include(":http:clients:okhttp")
+include(":http:servers:servlet:servlet2x")
+include(":http:servers:servlet:servlet3x")
