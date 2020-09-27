@@ -1,0 +1,25 @@
+{
+  "enabled": true,
+  "reporting": {
+    "backoff_delay_ms": 3000,
+    "queue_size": 100,
+    "retry_on_failure": true,
+    "traces_address": "http://localhost:14268/api/traces"
+  },
+  "logging": {
+    "level": "DEBUG",
+    "outputPaths": [
+      "stdout",
+      "/tmp/"
+    ]
+  },
+  "opa": {
+    "enabled": true,
+    "server": "http://127.0.0.1:8182/",
+    "skip_verify": false,
+    "polling_period": 2
+  },
+  "java_agent": {
+    "wrap_request_response": false
+  }
+}

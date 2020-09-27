@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "reporting": {
+    "backoff_delay_ms": 3000,
+    "queue_size": 100,
+    "retry_on_failure": true,
+    "traces_address": "http://localhost:14278/api/traces"
+  },
+  "logging": {
+    "level": "INFO",
+    "outputPaths": [
+      "stdout",
+      "/tmp/"
+    ]
+  }
+}
