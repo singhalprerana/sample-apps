@@ -25,14 +25,14 @@ public class SampleOkHttpClient {
     callback = new Callback() {
       @Override
       public void onFailure(Call call, IOException e) {
-        System.out.println("Client Response error: " + e);
+        System.out.println("Client Response error: " + e.getMessage());
       }
       @Override
       public void onResponse(Call call, final Response response) {
         if (!response.isSuccessful()) {
           System.out.println("Client Response error: " + response);
         } else {
-          System.out.println("Client Response completed: " + response.toString());
+          System.out.println("Client Response completed: " + response);
         }
         response.close();
       }
@@ -115,15 +115,15 @@ public class SampleOkHttpClient {
 
   public void runClientApp(String getPath, String formPath, String jsonPath, String textPath) throws InterruptedException, IOException {
     while (true) {
-      Thread.sleep(100);
+      Thread.sleep(1000);
       makeCall(getPath, CallType.GET, false, true, "");
-      Thread.sleep(100);
+      Thread.sleep(1000);
       makeCall(formPath, CallType.POST_FORM, true, true, "");
-      Thread.sleep(100);
+      Thread.sleep(1000);
       makeCall(jsonPath, CallType.POST_JSON, true, true, "");
-      Thread.sleep(100);
+      Thread.sleep(1000);
       makeCall(textPath, CallType.POST_TEXT, true, true, "");
-      Thread.sleep(100);
+      Thread.sleep(1000);
     }
   }
 

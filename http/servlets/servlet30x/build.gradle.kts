@@ -9,7 +9,7 @@ repositories {
 dependencies {
     implementation(project(":http:clients:okhttp"))
     implementation(project(":http:clients:grizzly"))
-    implementation("javax.servlet:servlet-api:2.5")
+    implementation("javax.servlet:javax.servlet-api:3.0.1")
     implementation("com.google.code.gson:gson:2.7")
 }
 

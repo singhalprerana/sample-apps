@@ -12,5 +12,8 @@
       "stdout",
       "/tmp/"
     ]
+  },
+  "java_agent": {
+    "wrap_request_response": false
   }
 }
