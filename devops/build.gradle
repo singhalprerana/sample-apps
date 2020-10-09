@@ -1,0 +1,141 @@
+apply plugin: 'java'
+
+project.ext {
+    containerBaseDir = "${project.rootDir}/devops/environments"
+}
+
+ext.runCommand = { workDir, args ->
+    println('Running the command at [' + workDir + "] with args " + args)
+    exec {
+        workingDir workDir
+        commandLine args
+    }
+}
+
+ext.isContainerRunning = { name ->
+    def containerId = ("docker ps  -q -f name=" + name).execute().text.trim();
+    return !containerId.isEmpty();
+}
+
+
+ext.doStopActiveMQ = { ->
+    println('Stopping ActiveMQ')
+    runCommand("${containerBaseDir}/src/activemq", ['docker-compose', 'stop'])
+}
+
+ext.doCleanActiveMQ = { ->
+    doStopActiveMQ()
+    println('Removing ActiveMQ Container')
+    runCommand("${containerBaseDir}/src/activemq", ['docker-compose', 'down'])
+    println('Cleaning ActiveMQ directory')
+    runCommand("${containerBaseDir}", ['rm', '-rf', 'workdir/activemq'])
+}
+
+ext.doStartActiveMQ = { ->
+    if (!isContainerRunning('activemq_')) {
+        println('Starting ActiveMQ....')
+        runCommand("${containerBaseDir}/src/activemq", ['docker-compose', 'up', '--build', '-d']);
+    } else {
+        println('[INFO] ActiveMQ is already running')
+    }
+}
+
+
+ext.doStopMySQL = { ->
+    println('Stopping MySQL')
+    runCommand("${containerBaseDir}/src/mysql", ['docker-compose', 'stop'])
+}
+
+ext.doCleanMySQL = { ->
+    doStopMySQL()
+    println('Removing MySQL Container')
+    runCommand("${containerBaseDir}/src/mysql", ['docker-compose', 'down'])
+    println('Cleaning MySQL directory')
+    runCommand("${containerBaseDir}", ['rm', '-rf', 'workdir/mysql'])
+}
+
+ext.doStartMySQL = { ->
+    if (!isContainerRunning('mysql_')) {
+        println('Starting MySQL....')
+        runCommand("${containerBaseDir}/src/mysql", ['docker-compose', 'up', '--build', '-d']);
+    } else {
+        println('[INFO] MySQL is already running')
+    }
+}
+
+
+
+task stopActiveMQ() {
+    doLast {
+        doStopActiveMQ();
+    }
+}
+
+task cleanActiveMQ() {
+    doLast {
+        doCleanActiveMQ();
+    }
+}
+
+task startActiveMQ() {
+    doLast {
+        doStartActiveMQ();
+    }
+}
+
+task restartActiveMQ() {
+    doLast {
+        doStopActiveMQ();
+        doStartActiveMQ();
+    }
+}
+
+
+task stopMySQL() {
+    doLast {
+        doStopMySQL();
+    }
+}
+
+task cleanMySQL() {
+    doLast {
+        doCleanMySQL();
+    }
+}
+
+task startMySQL() {
+    doLast {
+        doStartMySQL();
+    }
+}
+
+task restartMySQL() {
+    doLast {
+        doStopMySQL();
+        doStartMySQL();
+    }
+}
+
+
+
+task startContainers() {
+    doLast {
+        doStartActiveMQ();
+        doStartMySQL();
+    }
+}
+
+task stopContainers() {
+    doLast {
+        doStopActiveMQ();
+        doStopMySQL();
+    }
+}
+
+task cleanContainers() {
+    doLast {
+        doCleanActiveMQ();
+        doCleanMySQL();
+    }
+}
+

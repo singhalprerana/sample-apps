@@ -1,0 +1,28 @@
+2019-07-08 06:17:09,839 | INFO  | Refreshing org.apache.activemq.xbean.XBeanBrokerFactory$1@7823a2f9: startup date [Mon Jul 08 06:17:09 UTC 2019]; root of context hierarchy | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2019-07-08 06:17:10,773 | INFO  | Using Persistence Adapter: KahaDBPersistenceAdapter[/data/activemq/kahadb] | org.apache.activemq.broker.BrokerService | main
+2019-07-08 06:17:11,071 | INFO  | PListStore:[/data/activemq/amq/tmp_storage] started | org.apache.activemq.store.kahadb.plist.PListStoreImpl | main
+2019-07-08 06:17:11,315 | INFO  | JobSchedulerStore: /data/activemq/amq/scheduler started. | org.apache.activemq.store.kahadb.scheduler.JobSchedulerStoreImpl | main
+2019-07-08 06:17:11,454 | INFO  | Apache ActiveMQ 5.14.3 (amq, ID:8867828239b7-40969-1562566631328-0:1) is starting | org.apache.activemq.broker.BrokerService | main
+2019-07-08 06:17:11,494 | INFO  | Listening for connections at: tcp://8867828239b7:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2019-07-08 06:17:11,573 | INFO  | Connector openwire started | org.apache.activemq.broker.TransportConnector | main
+2019-07-08 06:17:11,577 | INFO  | Listening for connections at: amqp://8867828239b7:5672?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2019-07-08 06:17:11,579 | INFO  | Connector amqp started | org.apache.activemq.broker.TransportConnector | main
+2019-07-08 06:17:11,583 | INFO  | Listening for connections at: stomp://8867828239b7:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2019-07-08 06:17:11,586 | INFO  | Connector stomp started | org.apache.activemq.broker.TransportConnector | main
+2019-07-08 06:17:11,595 | INFO  | Listening for connections at: mqtt://8867828239b7:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2019-07-08 06:17:11,598 | INFO  | Connector mqtt started | org.apache.activemq.broker.TransportConnector | main
+2019-07-08 06:17:11,828 | WARN  | ServletContext@o.e.j.s.ServletContextHandler@7b8b43c7{/,null,STARTING} has uncovered http methods for path: / | org.eclipse.jetty.security.SecurityHandler | main
+2019-07-08 06:17:11,918 | INFO  | Listening for connections at ws://8867828239b7:61614?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.ws.WSTransportServer | main
+2019-07-08 06:17:11,920 | INFO  | Connector ws started | org.apache.activemq.broker.TransportConnector | main
+2019-07-08 06:17:11,922 | INFO  | Apache ActiveMQ 5.14.3 (amq, ID:8867828239b7-40969-1562566631328-0:1) started | org.apache.activemq.broker.BrokerService | main
+2019-07-08 06:17:11,924 | INFO  | For help or more information please see: http://activemq.apache.org | org.apache.activemq.broker.BrokerService | main
+2019-07-08 06:17:12,370 | INFO  | No Spring WebApplicationInitializer types detected on classpath | /admin | main
+2019-07-08 06:17:12,662 | INFO  | ActiveMQ WebConsole available at http://0.0.0.0:8161/ | org.apache.activemq.web.WebConsoleStarter | main
+2019-07-08 06:17:12,663 | INFO  | ActiveMQ Jolokia REST API available at http://0.0.0.0:8161/api/jolokia/ | org.apache.activemq.web.WebConsoleStarter | main
+2019-07-08 06:17:12,711 | INFO  | Initializing Spring FrameworkServlet 'dispatcher' | /admin | main
+2019-07-08 06:17:12,979 | INFO  | No Spring WebApplicationInitializer types detected on classpath | /api | main
+2019-07-08 06:17:13,095 | INFO  | jolokia-agent: Using policy access restrictor classpath:/jolokia-access.xml | /api | main
+2019-07-08 06:25:33,693 | WARN  | Transport Connection to: tcp://172.26.0.1:37758 failed: java.io.EOFException | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ Transport: tcp:///172.26.0.1:37758@61616
+2019-07-08 06:27:41,928 | WARN  | Transport Connection to: tcp://172.26.0.1:37764 failed: java.io.EOFException | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ Transport: tcp:///172.26.0.1:37764@61616
+2019-07-08 10:53:27,785 | WARN  | Transport Connection to: tcp://172.26.0.1:37760 failed: java.io.EOFException | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ Transport: tcp:///172.26.0.1:37760@61616
+2019-07-08 10:53:29,291 | WARN  | Transport Connection to: tcp://172.26.0.1:37766 failed: java.io.EOFException | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ Transport: tcp:///172.26.0.1:37766@61616
