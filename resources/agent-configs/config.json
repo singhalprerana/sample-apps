@@ -4,7 +4,7 @@
     "backoff_delay_ms": 3000,
     "queue_size": 100,
     "retry_on_failure": true,
-    "traces_address": "http://localhost:14278/api/traces"
+    "traces_address": "http://localhost:14268/api/traces"
   },
   "logging": {
     "level": "INFO",
@@ -13,7 +13,13 @@
       "/tmp/"
     ]
   },
-  "java_agent": {
-    "wrap_request_response": false
+  "defer_capture_of_attributes": [
+    "http.request.header.authorization"
+  ],
+  "opa": {
+    "enabled": false,
+    "server": "http://127.0.0.1:8182/",
+    "skip_verify": false,
+    "polling_period": 60
   }
 }

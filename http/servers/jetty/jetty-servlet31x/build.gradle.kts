@@ -18,6 +18,10 @@ dependencies {
     implementation("org.eclipse.jetty:jetty-server:${jettyVersion}")
     implementation("org.eclipse.jetty:jetty-servlet:${jettyVersion}")
     implementation("com.google.code.gson:gson:2.7")
+    implementation("mysql:mysql-connector-java:5.1.26")
+    implementation("org.sql2o:sql2o:1.6.0")
+    implementation("com.zaxxer:HikariCP:3.4.5")
+
 }
 
 tasks.register<Jar>("generate-server-jar") {

@@ -9,8 +9,9 @@ repositories {
 dependencies {
     implementation(project(":http:clients:okhttp"))
     implementation(project(":http:clients:grizzly"))
-    implementation(project(":http:servlets:servlet30x"))
+    implementation(project(":http:servlets:servlet31x"))
     implementation("org.apache.tomcat.embed:tomcat-embed-core:9.0.0.M6")
+    implementation("org.apache.tomcat.embed:tomcat-embed-jasper:9.0.0.M6")
     implementation("org.apache.tomcat.embed:tomcat-embed-logging-juli:9.0.0.M6")
     implementation("com.google.code.gson:gson:2.7")
 }

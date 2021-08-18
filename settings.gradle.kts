@@ -13,6 +13,7 @@ buildscript {
     }
 }
 
+include(":devops")
 include(":grpc")
 
 include(":http:clients:grizzly")

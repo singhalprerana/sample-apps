@@ -16,6 +16,8 @@ dependencies {
     implementation("io.grpc:grpc-all:1.19.0")
     implementation("javax.annotation:javax.annotation-api:1.3.2")
     implementation("com.google.protobuf:protobuf-java:${PROTOBUF_VERSION}")
+//    implementation("io.opentracing:opentracing-api:0.32.0")
+//    implementation("io.opentracing:opentracing-util:0.32.0")
 }
 
 

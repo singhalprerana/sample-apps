@@ -7,8 +7,6 @@ import okhttp3.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author prerana.singhal on 23/09/2020
@@ -52,7 +50,7 @@ public class SampleOkHttpClient {
 
   public void makeCall(String path, CallType callType, boolean addQueryParams, boolean addIpHeaders, String paramPrefix) throws IOException {
     Request.Builder builder = new Request.Builder();
-    addIpHeaders(builder);
+    addIpAndAuthHeaders(builder);
 
     String key = paramPrefix + "key";
     String value = paramPrefix + "val";
@@ -106,8 +104,9 @@ public class SampleOkHttpClient {
     return builder.post(formBody).build();
   }
 
-  private void addIpHeaders(Request.Builder builder) {
-    builder.addHeader("x-real-ip", "127.0.0.1")
+  private void addIpAndAuthHeaders(Request.Builder builder) {
+    builder.addHeader("Authorization", "Bearer qwerty1234=")
+        .addHeader("x-real-ip", "127.0.0.1")
         .addHeader("x-forwarded-for", "127.0.0.2,9.2.3")
         .addHeader("x-proxyuser-ip", "127.0.0.3")
         .addHeader("forwarded", "for=127.0.0.31;for=127.0.0.32;for=127.0.0.41;for=127.0.2.42;f=127.0.0.43;127.0.0.44;");
@@ -115,15 +114,15 @@ public class SampleOkHttpClient {
 
   public void runClientApp(String getPath, String formPath, String jsonPath, String textPath) throws InterruptedException, IOException {
     while (true) {
-      Thread.sleep(1000);
+      Thread.sleep(100);
       makeCall(getPath, CallType.GET, false, true, "");
-      Thread.sleep(1000);
+      Thread.sleep(100);
       makeCall(formPath, CallType.POST_FORM, true, true, "");
-      Thread.sleep(1000);
+      Thread.sleep(100);
       makeCall(jsonPath, CallType.POST_JSON, true, true, "");
-      Thread.sleep(1000);
+      Thread.sleep(100);
       makeCall(textPath, CallType.POST_TEXT, true, true, "");
-      Thread.sleep(1000);
+      Thread.sleep(100);
     }
   }
 

@@ -1,0 +1,6 @@
+service_name: SampleApp
+propagationFormats:
+  - TRACECONTEXT
+reporting:
+  trace_reporter_type: ZIPKIN
+  endpoint: http://34.82.15.50:9411/api/v2/spans

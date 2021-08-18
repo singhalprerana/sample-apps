@@ -1,5 +1,6 @@
 package prer.sample.app.server.servlet;
 
+import com.google.gson.Gson;
 import prer.sample.app.client.grizzly.SampleGrizzlyClient;
 import prer.sample.app.client.okhttp.SampleOkHttpClient;
 
@@ -7,6 +8,7 @@ import javax.servlet.AsyncContext;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -54,6 +56,12 @@ public class SampleServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     try {
       System.out.println("***** Get Request received at " + request.getRequestURL());
+
+//      request.authenticate(response);
+//      request.getHeaderNames();
+//      request.getHeader("user-agent");
+//      request.getHeaders("user-agent");
+
       request.setAttribute("org.apache.catalina.ASYNC_SUPPORTED", true);
       AsyncContext asyncCtx = request.startAsync();
       asyncCtx.addListener(new SampleAsyncListener(okHttpClient, grizzlyClient));
@@ -69,6 +77,7 @@ public class SampleServlet extends HttpServlet {
       out.println("Whether you come back by page or by the big screen, Hogwarts will always be there to welcome you home.");
       out.println("</body>");
       out.println("</html>");
+      //asyncCtx.dispatch("/sampleAsync.jsp");
       asyncCtx.complete();
     } catch (Throwable e) {
       System.out.println("Server exception at doGet: " + e);
@@ -115,8 +124,9 @@ public class SampleServlet extends HttpServlet {
   }
 
   private void doPostJson(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    if (request.getInputStream().isReady()) {
+    if (!request.getInputStream().isFinished()) {
       AsyncContext asyncCtx;
+      request.setAttribute("org.apache.catalina.ASYNC_SUPPORTED", true);
       if (request instanceof HttpServletRequestWrapper && response instanceof HttpServletResponseWrapper) {
         asyncCtx = request.startAsync(new HttpServletRequestWrapper((HttpServletRequest) ((HttpServletRequestWrapper) request).getRequest()),
             new HttpServletResponseWrapper((HttpServletResponse) ((HttpServletResponseWrapper) response).getResponse()));
@@ -127,8 +137,35 @@ public class SampleServlet extends HttpServlet {
 
       ThreadPoolExecutor executor =
           new ThreadPoolExecutor(1, 1, 1000, TimeUnit.NANOSECONDS, new ArrayBlockingQueue<Runnable>(2));
-      executor.execute(new AsyncRequestProcessor(asyncCtx));
+      //executor.execute(new AsyncRequestProcessor(asyncCtx));
+      executor.execute(() -> runPostJson(asyncCtx));
     }
+  }
+
+  public void runPostJson(AsyncContext asyncContext) {
+    HttpServletRequest request = (HttpServletRequest) asyncContext.getRequest();
+    HttpServletResponse response = (HttpServletResponse) asyncContext.getResponse();
+
+    try {
+      String str = "";
+      if (System.currentTimeMillis() % 2 == 0) {
+        str = "Partial stream: " + (char) request.getInputStream().read() + "";
+      } else {
+        int ch;
+        while ((ch = request.getInputStream().read()) != -1) {
+          str += (char) ch;
+        }
+      }
+      Map<String, String> map = new HashMap<>();
+      map.put("Request", str);
+      map.put("Response", "Harry Potter meets Chanandler Bong.!");
+
+      response.setContentType("application/json");
+      response.getWriter().print(new Gson().toJson(map));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    asyncContext.complete();
   }
 
   private void doPostForm(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -41,12 +41,15 @@ public class SampleJettyApp {
       clientTypes = new HashSet<>();
       clientTypes.add(SampleServlet.ClientType.OkHttp);
     }
-    SampleJettyServer downstreamServer = new SampleJettyServer(downstreamPort, -1, null);
+    SampleJettyServer downstreamServer = new SampleJettyServer(downstreamPort, -1, "", null);
     downstreamServer.start();
 
-    SampleJettyServer upstreamServer = new SampleJettyServer(upstreamPort, downstreamPort, clientTypes);
+    SampleJettyServer upstreamServer = new SampleJettyServer(upstreamPort, downstreamPort, "", clientTypes);
     upstreamServer.start();
 
+    SampleOkHttpClient okHttpClient = new SampleOkHttpClient(upstreamPort);
+    okHttpClient.runClientApp("/get", "/form", "/json", "/text");
+/*
     if (clientTypes.contains(SampleServlet.ClientType.OkHttp)) {
       SampleOkHttpClient okHttpClient = new SampleOkHttpClient(upstreamPort);
       Thread thread1 = new Thread(){
@@ -84,7 +87,7 @@ public class SampleJettyApp {
       };
       thread1.start();
       thread2.start();
-    }
+    }*/
   }
 
 }

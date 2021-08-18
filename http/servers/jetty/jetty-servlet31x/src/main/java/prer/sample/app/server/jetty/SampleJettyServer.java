@@ -33,8 +33,13 @@ public class SampleJettyServer {
   }
 
   public static void main(String[] args) throws Exception {
-    int serverPort = Integer.parseInt(args[0]);
-    int clientPort = Integer.parseInt(args[1]);
+    int serverPort = 50071;
+    int clientPort = -1;
+
+    if (args.length > 1) {
+      serverPort = Integer.parseInt(args[0]);
+      clientPort = Integer.parseInt(args[1]);
+    }
 
     Set<SampleServlet.ClientType> clientTypes = new HashSet<>();
     if (args.length > 2) {
